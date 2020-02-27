@@ -1,0 +1,12 @@
+# 사용
+#security:
+#  user:
+#    name: user
+#    password: test
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/zero
+    username: root
+    password: password
