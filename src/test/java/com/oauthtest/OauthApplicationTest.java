@@ -39,8 +39,8 @@ public class OauthApplicationTest {
     private String SCOPE = "read";
     private String CLIENT_ID = "foo";
     private String CLIENT_SECRET = "bar";
-    private String SECURITY_USERNAME = "kfship";
-    private String SECURITY_PASSWORD = "1234";
+    private String SECURITY_USERNAME = "user";
+    private String SECURITY_PASSWORD = "test";
 
     @Before
     public void setUp() throws Exception {
@@ -49,13 +49,13 @@ public class OauthApplicationTest {
 
     @Test
     public void when_callApi_expect_unauthorized() throws Exception {
-        mockMvc.perform(get("/Users")).andExpect(status().isUnauthorized());
+        mockMvc.perform(get("/User")).andExpect(status().isUnauthorized());
     }
 
     @Test
     public void when_callUsers_expect_success() throws Exception {
         String accessToken =obtainAccessToken(SECURITY_USERNAME,SECURITY_PASSWORD);
-        mockMvc.perform(get("/Users")
+        mockMvc.perform(get("/User")
                 .header("Authorization", "Bearer " + accessToken)
                 .accept(CONTENT_TYPE))
                 .andExpect(status().isOk())
@@ -67,7 +67,7 @@ public class OauthApplicationTest {
 
         String accessToken =obtainAccessToken(SECURITY_USERNAME, SECURITY_PASSWORD);
 
-        mockMvc.perform(get("/Users/2")
+        mockMvc.perform(get("/User/2")
                 .header("Authorization", "Bearer " + accessToken)
                 .accept(CONTENT_TYPE))
                 .andExpect(jsonPath("$.username", is("test2")));
@@ -84,14 +84,14 @@ public class OauthApplicationTest {
     }
 
     private void verifyUser(String accessToken) throws Exception {
-        mockMvc.perform(get("/Users/1")
+        mockMvc.perform(get("/User/1")
                 .header("Authorization", "Bearer " + accessToken)
                 .accept(CONTENT_TYPE))
                 .andExpect(jsonPath("$.username", is("test")));
     }
 
     private void createUser(JSONObject user, String accessToken) throws Exception {
-        mockMvc.perform(post("/Users")
+        mockMvc.perform(post("/User")
                 .header("Authorization", "Bearer " + accessToken)
                 .contentType(CONTENT_TYPE)
                 .content(user.toString())

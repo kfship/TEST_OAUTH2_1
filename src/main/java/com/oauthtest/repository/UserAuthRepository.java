@@ -1,10 +1,12 @@
 package com.oauthtest.repository;
 
-import com.oauthtest.bean.Users;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.oauthtest.bean.User;
+import com.oauthtest.bean.projection.UsersExcerpt;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
-public interface UserAuthRepository extends JpaRepository<Users, String> {
+@RepositoryRestResource(excerptProjection = UsersExcerpt.class)
+public interface UserAuthRepository extends SearchableRepository<User, String> {
 
-    Users findByUserId(String userId);
-
+    User findByUserId(String userId);
 }

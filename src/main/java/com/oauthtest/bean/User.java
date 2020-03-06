@@ -10,11 +10,12 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Users {
+public class User {
 
     @Id
     private String userId;
     private String password;
     private String name;
     private String role;
+    private String extraValue;
 }

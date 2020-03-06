@@ -1,7 +1,7 @@
 package com.oauthtest.service;
 
 import com.oauthtest.bean.CustomUserDetails;
-import com.oauthtest.bean.Users;
+import com.oauthtest.bean.User;
 import com.oauthtest.repository.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService  {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Users user = userAuthRepository.findByUserId(username);
+        User user = userAuthRepository.findByUserId(username);
 
         if(user == null) {
 
