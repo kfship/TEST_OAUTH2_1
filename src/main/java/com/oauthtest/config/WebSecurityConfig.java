@@ -26,32 +26,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
+    /* 처음에 HttpSecurity 설정을 이곳에서 해줬는데 설정이 적용되지 않는 부분이 있어서 ResourceServer 에 관련 설정을 추가함
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http
             .csrf().disable()
             .authorizeRequests()
-                .antMatchers("/hello").permitAll()
-                .antMatchers("/Users").authenticated()
+                .antMatchers("/hello**").permitAll()
+                //.antMatchers("/User").authenticated()
                 .anyRequest().authenticated();
     }
+    */
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
         auth.userDetailsService(customUserDetailsService);
     }
 
     /**
-     * AuthorizationServer 에서 client_secret hash 결과를 얻기 위해 사용된다
-     * (DB에는 client_secret 값이 hash 된 상태로 저장된다)
+     * client_secret, (user)password hash 결과를 얻기 위해 사용된다
+     * (DB에는 password, client_secret 값이 hash 된 상태로 저장된다)
      *
      * @return
      */
     @Bean
     public PasswordEncoder encoder() {
-
         return new BCryptPasswordEncoder();
     }
 }

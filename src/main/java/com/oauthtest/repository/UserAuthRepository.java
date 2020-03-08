@@ -1,10 +1,16 @@
 package com.oauthtest.repository;
 
-import com.oauthtest.bean.Users;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.oauthtest.bean.User;
+import com.oauthtest.bean.projection.UsersProjection;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
-public interface UserAuthRepository extends JpaRepository<Users, String> {
+//@Repository
+@RepositoryRestResource(excerptProjection = UsersProjection.class)
+public interface UserAuthRepository extends PagingAndSortingRepository<User, String>, JpaSpecificationExecutor<User>  {
 
-    Users findByUserId(String userId);
+    User findByUserId(String userId);
 
 }
